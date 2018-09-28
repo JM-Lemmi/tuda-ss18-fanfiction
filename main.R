@@ -154,3 +154,30 @@ Charliste <- vector()
 for (i in 1:length(wikicharIII)){Charliste <- c(Charliste,wiki.list_cleanup(wikicharIII[i]))}
 
 Charliste <- Charliste[1:197] #damit die unnötigen Wikipedia Teile rauskommen
+
+#Trennung aller Namen in Vorname und Nachname
+Charliste.trenn <- vector()
+Charliste.trenn <- strsplit(Charliste, " ")
+# dies erstellt allerdings einen Dataframe und ist daher nicht geeignet
+
+for (i in 1:length(Charliste)){
+  x <- strsplit(Charliste[i], " ")
+  
+  Charliste.trenn <- c(Charliste.trenn, x[[1]])
+}
+
+# Word counter
+
+#first load all .txt files into a variable
+
+corpus.orig_1 <- read_file("C:\\Users\\julia\\OneDrive\\User Data\\Uni\\Semester 2\\Fanfiction\\Hausarbeit\\corpus\\original\\Harry Potter and the Chamber of Secrets.txt")
+
+length(grep("Harry", corpus.orig_1))
+
+
+
+
+
+
+
+
