@@ -75,8 +75,12 @@ text_extract <- function(x){
 
 #dieser loop kann von einer ganzen linkliste alle chapter herungerladen
 #umbedint das richtige WD setzen vor diesem loop! sonst landen die dateien sonstwo
-setwd("C:/Users/julia/User Data/Uni/semester 2/Fanfiction/Hausarbeit")
+#setwd("C:/Users/julia/User Data/Uni/semester 2/Fanfiction/Hausarbeit")
+
+j <- 0
+
 for (u in Linkliste){
+  j <- j + 1
   x <- strsplit(u, "/1/")
   u.1 <- unlist(lapply(x, "[[", 1))
   u.2 <- unlist(lapply(x, "[[", 2))
@@ -86,11 +90,37 @@ for (u in Linkliste){
   for (i in 1:length(v)){
     texte <- text_extract(v[i])
     write.table(texte,
-                paste0(u.2, ".txt"),
+                paste0(j, "_", u.2, ".txt"),
                 append = TRUE,
                 row.names = F,
                 col.names = F,
                 fileEncoding = "UTF-8")
-    Sys.sleep(4)
+    Sys.sleep(3)
   }
 }
+
+
+# nach 31 timeout, warum auch immer. Also nochmal
+
+Linkliste2 <- Linkliste[34:50]
+
+j <- 33
+for (u in Linkliste2){
+  j <- j + 1
+  x <- strsplit(u, "/1/")
+  u.1 <- unlist(lapply(x, "[[", 1))
+  u.2 <- unlist(lapply(x, "[[", 2))
+  
+  v <- paste0(u.1, "/",  1:Chapter_extract(Metaliste[i]), "/", u.2) # v ist die Liste der Chapterlinks für eine Geschichte
+  
+  for (i in 1:length(v)){
+    texte <- text_extract(v[i])
+    write.table(texte,
+                paste0(j, "_", u.2, ".txt"),
+                append = TRUE,
+                row.names = F,
+                col.names = F,
+                fileEncoding = "UTF-8")
+    Sys.sleep(3)
+  }
+}d
