@@ -18,7 +18,7 @@ Meta_scrapen <- function(x){
   html_text(html_nodes(read_html(x), css = ".xgray"))
 }
 link_scrapen <- function(x){
-  paste("https://www.fanfiktion.net",html_attr(html_nodes(read_html(x), css = ".stitle"), "href"), sep="" )
+  paste("http://www.fanfiction.net",html_attr(html_nodes(read_html(x), css = ".stitle"), "href"), sep="" )
 }
 
 # Der typische fanfiction.net Overview-Seitenlink: https://www.fanfiction.net/book/Harry-Potter/?&srt=4&r=10&p=2
@@ -32,10 +32,10 @@ Metaliste <- vector()
 Linkliste <- vector()
 
 for (i in 1:Seitenzahl) {
-  Titelliste <- c(Titelliste,titel_scrapen(paste0("https://www.fanfiction.net/book/Harry-Potter/?&srt=4&r=10&p=", i)))
-  Autorliste <- c(Autorliste,Autor_scrapen(paste0("https://www.fanfiction.net/book/Harry-Potter/?&srt=4&r=10&p=", i)))
-  Metaliste <- c(Metaliste,Meta_scrapen(paste0("https://www.fanfiction.net/book/Harry-Potter/?&srt=4&r=10&p=", i)))
-  Linkliste  <- c(Linkliste, link_scrapen(paste0("https://www.fanfiction.net/book/Harry-Potter/?&srt=4&r=10&p=", i)))
+  Titelliste <- c(Titelliste,titel_scrapen(paste0("http://www.fanfiction.net/book/Harry-Potter/?&srt=4&r=10&p=", i)))
+  Autorliste <- c(Autorliste,Autor_scrapen(paste0("http://www.fanfiction.net/book/Harry-Potter/?&srt=4&r=10&p=", i)))
+  Metaliste <- c(Metaliste,Meta_scrapen(paste0("http://www.fanfiction.net/book/Harry-Potter/?&srt=4&r=10&p=", i)))
+  Linkliste  <- c(Linkliste, link_scrapen(paste0("http://www.fanfiction.net/book/Harry-Potter/?&srt=4&r=10&p=", i)))
   Sys.sleep(5)
 }
 
