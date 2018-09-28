@@ -123,4 +123,34 @@ for (u in Linkliste2){
                 fileEncoding = "UTF-8")
     Sys.sleep(3)
   }
-}d
+}
+
+
+# 28.09.2018
+
+# Character List
+
+wikicharI_scrapen <- function(x){  
+  html_text(html_nodes(read_html(x), css = ".mw-headline"))
+}
+wikicharII_scrapen <- function(x){  
+  html_text(html_nodes(read_html(x), css = ".toctext"))
+}
+
+wikicharI <- wikicharI_scrapen("https://de.wikipedia.org/wiki/Figuren_der_Harry-Potter-Romane")
+wikicharII <- wikicharII_scrapen("https://de.wikipedia.org/wiki/Figuren_der_Harry-Potter-Romane")
+wikicharI %in% wikicharII
+# es gibt bestimmt eine bessere Methode, aber ich mach das einfach Händisch.
+
+
+
+# bessere Methode:
+
+wikicharIII_scrapen <- function(x){html_text(html_nodes(read_html(x), css = ".mw-parser-output > ul li"))}
+wikicharIII <- wikicharIII_scrapen("https://en.wikipedia.org/wiki/List_of_Harry_Potter_characters")
+
+wiki.list_cleanup <- function(x){gsub(" – .*", "", x)} #vorischt, besonderer bindestrich!
+Charliste <- vector()
+for (i in 1:length(wikicharIII)){Charliste <- c(Charliste,wiki.list_cleanup(wikicharIII[i]))}
+
+Charliste <- Charliste[1:197] #damit die unnötigen Wikipedia Teile rauskommen
