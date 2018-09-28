@@ -170,14 +170,49 @@ for (i in 1:length(Charliste)){
 
 #first load all .txt files into a variable
 
-corpus.orig_1 <- read_file("C:\\Users\\julia\\OneDrive\\User Data\\Uni\\Semester 2\\Fanfiction\\Hausarbeit\\corpus\\original\\Harry Potter and the Chamber of Secrets.txt")
+#einlesen der txt
+corpus.orig <- read_file("C:\\Users\\julia\\OneDrive\\User Data\\Uni\\Semester 2\\Fanfiction\\Hausarbeit\\corpus\\original\\Harry Potter and the Chamber of Secrets.txt")
+#tokenisierung für arme
+corpus.orig1.token <- strsplit(corpus.orig_1, " ")
+corpus.orig1.token <- c(corpus.orig1.token[[1]]) #verwandlung von dataframe in vektor
+#wörter zählen
+length(grep("Harry", corpus.orig1.token))
 
-length(grep("Harry", corpus.orig_1))
+# und jetzt in allgemeiner:
 
+files_orig <- list.files("C:\\Users\\julia\\OneDrive\\User Data\\Uni\\Semester 2\\Fanfiction\\Hausarbeit\\corpus\\original\\")
+files_fanfic <- list.files("C:\\Users\\julia\\OneDrive\\User Data\\Uni\\Semester 2\\Fanfiction\\Hausarbeit\\corpus\\fanfic\\")
+files_all <- c(files_orig, files_fanfic)
 
+CountTable <- data.frame(Charliste.trenn)
+CountNames <- vector()
 
+for (f in 1:length(files_orig)){
+  path <- paste0("C:\\Users\\julia\\OneDrive\\User Data\\Uni\\Semester 2\\Fanfiction\\Hausarbeit\\corpus\\original\\", files_orig[f])
+  text <- read_file(path)
+  text <- strsplit(text, " ")
+  text <- c(text[[1]])
+  
+  CountNames <- vector()
+  
+  for (d in 1:length(Charliste.trenn)){
+    CountNames <- c(CountNames, length(grep(paste0("^", Charliste.trenn)[d], text)))
+  }
+  CountTable <- cbind(CountTable, CountNames)
+}
 
+CountTable.bak <- CountTable
 
-
-
-
+for (f in 1:length(files_fanfic)){
+  path <- paste0("C:\\Users\\julia\\OneDrive\\User Data\\Uni\\Semester 2\\Fanfiction\\Hausarbeit\\corpus\\fanfic\\", files_fanfic[f])
+  text <- read_file(path)
+  text <- strsplit(text, " ")
+  text <- c(text[[1]])
+  
+  CountNames <- vector()
+  
+  for (d in 1:length(Charliste.trenn)){
+    CountNames <- c(CountNames, length(grep(paste0("^", Charliste.trenn)[d], text)))
+  }
+  CountTable <- cbind(CountTable, CountNames)
+}
