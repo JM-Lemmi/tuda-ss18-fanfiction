@@ -3,6 +3,7 @@
 # 17.07.2018 20:14 / Frankfurt Airport
 
 library(rvest)
+library(readr)
 
 # 27.09.2018 / Home
 
@@ -216,3 +217,53 @@ for (f in 1:length(files_fanfic)){
   }
   CountTable <- cbind(CountTable, CountNames)
 }
+
+write.csv(CountTable, 'dataframe.csv')
+
+
+
+# 29.09.2018
+
+# Pronomen zählen
+
+Pronomen <- c("I", "me", "you", "she", "her", "he", "him", "it", "we", "us", "they", "them")
+
+CountPronTable <- data.frame(Pronomen)
+
+for (f in 1:length(files_orig)){
+  path <- paste0("C:\\Users\\julia\\OneDrive\\User Data\\Uni\\Semester 2\\Fanfiction\\Hausarbeit\\corpus\\original\\", files_orig[f])
+  text <- read_file(path)
+  text <- strsplit(text, " ")
+  text <- c(text[[1]])
+  
+  CountPron <- vector()
+  
+  for (d in 1:length(Pronomen)){
+    CountPron <- c(CountPron, length(grep(paste0("^", Pronomen)[d], text)))
+  }
+  CountPronTable <- cbind(CountPronTable, CountPron)
+}
+
+for (f in 1:length(files_fanfic)){
+  path <- paste0("C:\\Users\\julia\\OneDrive\\User Data\\Uni\\Semester 2\\Fanfiction\\Hausarbeit\\corpus\\fanfic\\", files_fanfic[f])
+  text <- read_file(path)
+  text <- strsplit(text, " ")
+  text <- c(text[[1]])
+  
+  CountPron <- vector()
+  
+  for (d in 1:length(Pronomen)){
+    CountPron <- c(CountPron, length(grep(paste0("^", Pronomen)[d], text)))
+  }
+  CountPronTable <- cbind(CountPronTable, CountPron)
+}
+
+write.csv(CountPronTable, 'PronounDataframe.csv')
+
+
+
+# Statistiken für den Korpuserläuterungsteil
+
+# Wörterzahl der Fanfictions
+
+sum(Wordliste)
