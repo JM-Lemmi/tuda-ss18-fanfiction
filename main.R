@@ -1,11 +1,8 @@
 # Scraper angepasst an Fanfcition.net
 # Julian Lemmerich
-# 17.07.2018 20:14 / Frankfurt Airport
 
 library(rvest)
 library(readr)
-
-# 27.09.2018 / Home
 
 # overviewscraper
 
@@ -127,8 +124,6 @@ for (u in Linkliste2){
 }
 
 
-# 28.09.2018
-
 # Character List
 
 wikicharI_scrapen <- function(x){  
@@ -222,8 +217,6 @@ write.csv(CountTable, 'dataframe.csv')
 
 
 
-# 29.09.2018
-
 # Pronomen zählen
 
 Pronomen <- c("I", "me", "you", "she", "her", "he", "him", "it", "we", "us", "they", "them")
@@ -304,3 +297,26 @@ for (f in 1:length(files_fanfic)){
 
 sum(wordcount_fanfic)
 mean(wordcount_fanfic)
+
+
+
+# Literaturverzeichnis
+
+Publishingdate_extract <- function(x){
+  x <- gsub(".*Published: ", "", x)
+  gsub(" - .*", "", x)
+}
+
+for (g in 1:50){
+  write.table(paste0(Autorliste[g], ": ",
+                     '"', Titelliste[g], '", ',
+                     Publishingdate_extract((Metaliste[g])), "; ",
+                     Linkliste[g],
+                     " (Stand: 28.09.2018)"),
+              paste0("Literaturverzeichnis.txt"),
+              append = TRUE,
+              row.names = F,
+              col.names = F,
+              fileEncoding = "UTF-8")
+}
+
