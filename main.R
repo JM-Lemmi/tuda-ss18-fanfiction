@@ -266,4 +266,41 @@ write.csv(CountPronTable, 'PronounDataframe.csv')
 
 # Wörterzahl der Fanfictions
 
-sum(Wordliste)
+Wordcount_fanfic <- 0
+
+for (w in Wordliste[1:50]){
+  Wordcount_fanfic <- Wordcount_fanfic + as.numeric(w)
+}
+
+#das spuckt nur NAs aus warum auch immer. Auch strtoi() ufnktioniert nicht.
+
+#also auf die manuelle variante:
+
+wordcount_orig <- vector()
+
+for (f in 1:length(files_orig)){
+  path <- paste0("C:\\Users\\julia\\OneDrive\\User Data\\Uni\\Semester 2\\Fanfiction\\Hausarbeit\\corpus\\original\\", files_orig[f])
+  text <- read_file(path)
+  text <- strsplit(text, " ")
+  text <- c(text[[1]])
+  
+  wordcount_orig <- c(wordcount_orig, length(text))
+}
+
+sum(wordcount_orig)
+mean(wordcount_orig)
+
+
+wordcount_fanfic <- vector()
+
+for (f in 1:length(files_fanfic)){
+  path <- paste0("C:\\Users\\julia\\OneDrive\\User Data\\Uni\\Semester 2\\Fanfiction\\Hausarbeit\\corpus\\fanfic\\", files_fanfic[f])
+  text <- read_file(path)
+  text <- strsplit(text, " ")
+  text <- c(text[[1]])
+  
+  wordcount_fanfic <- c(wordcount_fanfic, length(text))
+}
+
+sum(wordcount_fanfic)
+mean(wordcount_fanfic)
